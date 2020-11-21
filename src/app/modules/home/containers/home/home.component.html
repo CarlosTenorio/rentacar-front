@@ -1,1 +1,27 @@
-<p>home works!</p>
+<div>Pick up place</div>
+{{ locationSelected }}
+<!-- Locations Search -->
+<form #searchCarForm="ngForm" novalidate>
+    <select-city [locations]="locations$ | async" (locationChange)="locationChange($event)"></select-city>
+    <mat-error *ngIf="locationSelectedError">Pick up date required</mat-error>
+    <!-- <search-city [locations]="locations$ | async"></search-city> -->
+    <!-- PICK UP TIME -->
+    <mat-form-field appearance="fill">
+        <mat-label>Pick up time</mat-label>
+        <input matInput name="pickupDate" [matDatepicker]="pickupDate" [(ngModel)]="pickupDateValue" required />
+        <mat-datepicker-toggle matSuffix [for]="pickupDate"></mat-datepicker-toggle>
+        <mat-datepicker #pickupDate></mat-datepicker>
+        <mat-error *ngIf="searchCarForm.controls?.pickupDate?.invalid">Pick up date required</mat-error>
+    </mat-form-field>
+
+    <!-- RETURN TIME -->
+    <mat-form-field appearance="fill">
+        <mat-label>Return Time</mat-label>
+        <input matInput name="returnDate" [matDatepicker]="returnDate" [(ngModel)]="returnDateValue" required />
+        <mat-datepicker-toggle matSuffix [for]="returnDate"></mat-datepicker-toggle>
+        <mat-error *ngIf="searchCarForm.controls?.returnDate?.invalid">Return date required</mat-error>
+        <mat-datepicker #returnDate></mat-datepicker>
+    </mat-form-field>
+
+    <button [disabled]="!searchCarForm.valid || locationSelected == null" (click)="findCars()">SHOW ME OFFERS</button>
+</form>

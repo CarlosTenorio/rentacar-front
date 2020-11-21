@@ -1,0 +1,20 @@
+<input
+    type="text"
+    [(ngModel)]="locationSearch"
+    (ngModelChange)="searchChange()"
+    (keydown)="keyDownInput($event)"
+    (focus)="onFocusInput()"
+    (blur)="onBlurInput()"
+    required
+/>
+<div *ngIf="options" class="options-container">
+    <div
+        *ngFor="let location of options; let idx = index"
+        (click)="selectOption(location)"
+        (mouseover)="focusOption(idx)"
+        [class.item-focused]="idx === indexFocused"
+        class="options-item"
+    >
+        {{ location.name }}
+    </div>
+</div>
