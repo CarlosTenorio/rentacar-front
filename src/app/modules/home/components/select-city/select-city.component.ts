@@ -15,11 +15,12 @@ export enum KEY_CODE {
 export class SelectCityComponent {
     @Input() locations: LocationInterface[];
 
-    @Output() locationChange = new EventEmitter<string>();
+    @Output() locationChange = new EventEmitter<LocationInterface>();
 
     indexFocused = 0;
     inputFocused = false;
     locationSearch: string | null = null;
+    locationSelected: LocationInterface;
     options: LocationInterface[] = [];
 
     constructor() {}
@@ -34,10 +35,11 @@ export class SelectCityComponent {
                 this.indexFocused++;
             }
             if (event.keyCode === KEY_CODE.ENTER) {
-                this.locationSearch = this.options[this.indexFocused]
-                    ? this.options[this.indexFocused].name
-                    : this.locationSearch;
-                this.locationChange.emit(this.locationSearch);
+                this.locationSelected = this.options[this.indexFocused]
+                    ? this.options[this.indexFocused]
+                    : this.locationSelected;
+                this.locationSearch = this.locationSelected.name;
+                this.locationChange.emit(this.locationSelected);
                 this.cleanOptions();
             }
         }
@@ -81,7 +83,8 @@ export class SelectCityComponent {
 
     selectOption(location: LocationInterface) {
         this.locationSearch = location.name;
-        this.locationChange.emit(this.locationSearch);
+        this.locationSelected = location;
+        this.locationChange.emit(this.locationSelected);
         this.cleanOptions();
     }
 }

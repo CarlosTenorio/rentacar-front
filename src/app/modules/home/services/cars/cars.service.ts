@@ -15,13 +15,18 @@ export class CarsService {
 
     constructor(private http: HttpClient) {}
 
-    loadAvailableCars(dateStart: Date, dateEnd: Date) {
+    loadAvailableCars(city: number, dateStart: Date, dateEnd: Date) {
         let httpParams;
         if (dateStart && dateEnd) {
             httpParams = new HttpParams()
                 .append('date_start', new Date(dateStart).toISOString())
                 .append('date_end', new Date(dateEnd).toISOString());
         }
+
+        if (city) {
+            httpParams = httpParams.append('city', city.toString());
+        }
+
         this.http
             .get<CarInterface[]>(`${environment.api}/cars`, { params: httpParams })
             .pipe(finalize(() => {}))

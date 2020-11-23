@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
 
     findCars() {
         if (this.formIsValid()) {
-            this.carsService.loadAvailableCars(this.pickupDateValue, this.returnDateValue);
+            this.carsService.loadAvailableCars(this.locationSelected.id, this.pickupDateValue, this.returnDateValue);
             this.router.navigate(['offerlist']);
         }
     }

@@ -1,5 +1,4 @@
 <div>Pick up place</div>
-{{ locationSelected }}
 <!-- Locations Search -->
 <form #searchCarForm="ngForm" novalidate>
     <select-city [locations]="locations$ | async" (locationChange)="locationChange($event)"></select-city>
