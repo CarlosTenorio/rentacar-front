@@ -1,3 +1,11 @@
-<div *ngFor="let car of carsAvailable$ | async">
-    {{ car | json }}
+<div *ngIf="loadingCars$ | async">
+    <mat-spinner></mat-spinner>
+</div>
+<div *ngIf="!(loadingCars$ | async)" fxLayout="row" fxLayoutAlign="space-around center">
+    <car-info
+        *ngFor="let car of carsAvailable$ | async"
+        [car]="car"
+        (click)="saveOrder(car)"
+        class="car-info"
+    ></car-info>
 </div>

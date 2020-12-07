@@ -1,0 +1,29 @@
+.title {
+    font-size: 26px;
+    margin-top: 10px;
+    margin-bottom: 0;
+    flex: 0 0 100%;
+}
+
+.category {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.image {
+    flex: 0 0 100%;
+    margin-top: -25px;
+}
+
+.info {
+    flex: 0 0 100%;
+
+    .info-item {
+        margin-right: 10px;
+        span {
+            position: relative;
+            top: -5px;
+            margin-left: 5px;
+        }
+    }
+}

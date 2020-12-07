@@ -1,3 +1,22 @@
+@import './../../../../../assets/styles/vars.scss';
+
+.container-select {
+    width: inherit;
+}
+
 .item-focused {
-    background-color: red;
+    background-color: $primary-orange;
+    color: #fff;
+}
+
+.input-city {
+    width: 100%;
+    padding: 0.875rem 0 0.5rem;
+    color: $primary-black;
+    border: 0;
+    outline: 0;
+    border-bottom: 2px solid $primary-orange;
+    vertical-align: middle;
+    background-color: transparent;
+    text-overflow: ellipsis;
 }

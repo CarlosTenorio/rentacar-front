@@ -14,7 +14,7 @@ export class LocationsService {
 
     loadLocations() {
         this.http
-            .get<LocationInterface[]>(`${environment.api}/locations`)
+            .get<LocationInterface[]>(`${environment.apiURL}/locations`)
             .pipe(finalize(() => {}))
             .subscribe((locations: LocationInterface[]) => {
                 this.locationsSubject.next(locations);

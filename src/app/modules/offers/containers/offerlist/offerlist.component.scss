@@ -1,0 +1,9 @@
+.car-info {
+    cursor: pointer;
+    width: 100%;
+    padding: 20px;
+
+    &:hover {
+        background-color: #f4f2f2;
+    }
+}

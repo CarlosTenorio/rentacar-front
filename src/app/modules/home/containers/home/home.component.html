@@ -1,7 +1,11 @@
 <div>Pick up place</div>
 <!-- Locations Search -->
 <form #searchCarForm="ngForm" novalidate>
-    <select-city [locations]="locations$ | async" (locationChange)="locationChange($event)"></select-city>
+    <select-city
+        class="select-city"
+        [locations]="locations$ | async"
+        (locationChange)="locationChange($event)"
+    ></select-city>
     <mat-error *ngIf="locationSelectedError">Pick up date required</mat-error>
     <!-- <search-city [locations]="locations$ | async"></search-city> -->
     <!-- PICK UP TIME -->
