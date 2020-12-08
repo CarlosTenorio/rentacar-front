@@ -20,7 +20,6 @@ export class OfferlistComponent implements OnInit {
     ngOnInit() {
         this.carsAvailable$ = this.carsService.carsAvailable$;
         this.loadingCars$ = this.carsService.loadingCars$;
-        console.log(this.carsService.getAvailableCars().length);
         if (!this.carsService.getAvailableCars().length) {
             this.carsService.loadAvailableCars();
         }
