@@ -27,12 +27,18 @@ export class OfferlistComponent implements OnInit {
     }
 
     saveOrder(car: CarInterface) {
-        console.log(car);
+        const dateStart = this.carsService.getSearch().dateStart ? this.carsService.getSearch().dateStart : new Date();
+        const dateEnd = this.carsService.getSearch().dateEnd ? this.carsService.getSearch().dateEnd : new Date();
+
+        dateStart.setHours(0, 0, 0, 0);
+        dateEnd.setHours(0, 0, 0, 0);
+
         const orderToSave = {
             car: car.id,
-            date_start: this.carsService.getSearch().dateStart ? this.carsService.getSearch().dateStart : new Date(),
-            date_end: this.carsService.getSearch().dateEnd ? this.carsService.getSearch().dateEnd : new Date()
+            date_start: dateStart,
+            date_end: dateEnd
         } as OrderInterface;
+
         this.orderService.saveOrder(orderToSave).subscribe((order: OrderInterface) => {
             this.snackBar.open('Order created', null, {
                 duration: 2000

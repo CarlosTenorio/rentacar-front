@@ -23,6 +23,8 @@ export class CarsService {
         this.loadingCarsSubject.next(true);
         let httpParams;
         if (dateStart && dateEnd) {
+            dateStart.setHours(0, 0, 0, 0);
+            dateEnd.setHours(0, 0, 0, 0);
             httpParams = new HttpParams()
                 .append('date_start', new Date(dateStart).toISOString())
                 .append('date_end', new Date(dateEnd).toISOString());
