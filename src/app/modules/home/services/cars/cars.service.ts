@@ -23,13 +23,9 @@ export class CarsService {
         this.loadingCarsSubject.next(true);
         let httpParams;
         if (dateStart && dateEnd) {
-            const dateStartWithResetTime = new Date(dateStart);
-            // dateStartWithResetTime.setUTCHours(0, 0, 0, 0);
-            const dateEndWitResetTime = new Date(dateEnd);
-            // dateEndWitResetTime.setUTCHours(0, 0, 0, 0);
             httpParams = new HttpParams()
-                .append('date_start', dateStartWithResetTime.toISOString())
-                .append('date_end', new Date(dateEndWitResetTime).toISOString());
+                .append('date_start', new Date(dateStart).toISOString())
+                .append('date_end', new Date(dateEnd).toISOString());
         }
 
         if (city) {

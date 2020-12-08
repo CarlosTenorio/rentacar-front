@@ -2,16 +2,31 @@
 
 .container-select {
     width: inherit;
+    height: inherit;
+    position: relative;
+
+    .options-container {
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+
+        .options-item {
+            background-color: #fff;
+            line-height: 30px;
+            padding: 5px;
+            font-size: 17px;
+        }
+    }
 }
 
 .item-focused {
-    background-color: $primary-orange;
-    color: #fff;
+    background-color: $primary-orange !important;
 }
 
 .input-city {
-    width: 100%;
-    padding: 0.875rem 0 0.5rem;
+    width: calc(100% - 4px);
+    margin-top: 23px;
+    font-size: 22px;
     color: $primary-black;
     border: 0;
     outline: 0;

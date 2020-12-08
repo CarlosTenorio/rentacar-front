@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { CarInterface } from 'src/app/modules/home/models';
 import { CarsService } from 'src/app/modules/home/services/cars/cars.service';
 import { OrderService } from '../../services/order/order.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
     selector: 'app-offerlist',
@@ -14,7 +15,7 @@ export class OfferlistComponent implements OnInit {
     carsAvailable$: Observable<CarInterface[]>;
     loadingCars$: Observable<boolean>;
 
-    constructor(private carsService: CarsService, private orderService: OrderService) {}
+    constructor(private carsService: CarsService, private orderService: OrderService, private snackBar: MatSnackBar) {}
 
     ngOnInit() {
         this.carsAvailable$ = this.carsService.carsAvailable$;
@@ -33,7 +34,9 @@ export class OfferlistComponent implements OnInit {
             date_end: this.carsService.getSearch().dateEnd ? this.carsService.getSearch().dateEnd : new Date()
         } as OrderInterface;
         this.orderService.saveOrder(orderToSave).subscribe((order: OrderInterface) => {
-            console.log(order);
+            this.snackBar.open('Order created', null, {
+                duration: 2000
+            });
         });
     }
 }
