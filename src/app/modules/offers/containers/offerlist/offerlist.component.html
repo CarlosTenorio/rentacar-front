@@ -5,7 +5,7 @@
     <car-info
         *ngFor="let car of carsAvailable$ | async"
         [car]="car"
-        (click)="saveOrder(car)"
+        (click)="confirmOrder(car)"
         class="car-info"
     ></car-info>
 </div>

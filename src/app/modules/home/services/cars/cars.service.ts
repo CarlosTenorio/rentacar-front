@@ -19,7 +19,7 @@ export class CarsService {
 
     constructor(private http: HttpClient) {}
 
-    loadAvailableCars(city: number = null, dateStart: Date = null, dateEnd: Date = null) {
+    loadAvailableCars(cityId: number, cityName: string, dateStart: Date = null, dateEnd: Date = null) {
         this.loadingCarsSubject.next(true);
         let httpParams;
         if (dateStart && dateEnd) {
@@ -30,11 +30,11 @@ export class CarsService {
                 .append('date_end', new Date(dateEnd).toISOString());
         }
 
-        if (city) {
-            httpParams = httpParams.append('city', city.toString());
+        if (cityId) {
+            httpParams = httpParams.append('city', cityId.toString());
         }
 
-        this.newSearchTrigguered(city, dateStart, dateEnd);
+        this.newSearchTrigguered(cityId, cityName, dateStart, dateEnd);
 
         this.http
             .get<CarInterface[]>(`${environment.apiURL}/cars`, { params: httpParams })
@@ -48,8 +48,8 @@ export class CarsService {
             });
     }
 
-    private newSearchTrigguered(cityId: number, dateStart: Date, dateEnd: Date) {
-        this.searchCarsSubject.next({ cityId, dateEnd, dateStart } as SearchInterface);
+    private newSearchTrigguered(cityId: number, cityName: string, dateStart: Date, dateEnd: Date) {
+        this.searchCarsSubject.next({ cityId, cityName, dateEnd, dateStart } as SearchInterface);
     }
 
     getAvailableCars(): CarInterface[] {

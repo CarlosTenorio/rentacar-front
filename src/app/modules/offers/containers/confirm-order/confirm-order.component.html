@@ -1,0 +1,13 @@
+<div *ngIf="carToOrder$ | async" fxLayout="row" fxLayoutAlign="space-around center">
+    <div fxFlex="50" class="container-confirm">
+        <div class="title">Confirm Order</div>
+        <div class="info">
+            <div><strong>City:</strong> {{ (searchCars$ | async).cityName | uppercase }}</div>
+            <div><strong>Date Start:</strong> {{ (searchCars$ | async).dateStart | date: 'fullDate' }}</div>
+            <div><strong>Date End:</strong> {{ (searchCars$ | async).dateEnd | date: 'fullDate' }}</div>
+        </div>
+        <car-info [car]="carToOrder$ | async"></car-info>
+    </div>
+    <div fxFlex="50">I already have an account</div>
+    <button fxFlex="50">I'm a new user</button>
+</div>

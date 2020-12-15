@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { OrderInterface } from './../../models/order.interface';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -15,14 +16,21 @@ export class OfferlistComponent implements OnInit {
     carsAvailable$: Observable<CarInterface[]>;
     loadingCars$: Observable<boolean>;
 
-    constructor(private carsService: CarsService, private orderService: OrderService, private snackBar: MatSnackBar) {}
+    constructor(
+        private carsService: CarsService,
+        private orderService: OrderService,
+        private snackBar: MatSnackBar,
+        private router: Router
+    ) {}
 
     ngOnInit() {
         this.carsAvailable$ = this.carsService.carsAvailable$;
         this.loadingCars$ = this.carsService.loadingCars$;
-        if (!this.carsService.getAvailableCars().length) {
-            this.carsService.loadAvailableCars();
-        }
+    }
+
+    confirmOrder(car: CarInterface) {
+        this.orderService.setCarToOrder(car);
+        this.router.navigateByUrl('offerlist/confirm');
     }
 
     saveOrder(car: CarInterface) {
