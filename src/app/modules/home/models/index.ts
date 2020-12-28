@@ -5,3 +5,4 @@ export * from './category.interface';
 export * from './model.interface';
 export * from './brand.interface';
 export * from './search.interface';
+export * from './fuel-type.enum';

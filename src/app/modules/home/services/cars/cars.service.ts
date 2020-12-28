@@ -48,7 +48,7 @@ export class CarsService {
             });
     }
 
-    private newSearchTrigguered(cityId: number, cityName: string, dateStart: Date, dateEnd: Date) {
+    newSearchTrigguered(cityId: number, cityName: string, dateStart: Date, dateEnd: Date) {
         this.searchCarsSubject.next({ cityId, cityName, dateEnd, dateStart } as SearchInterface);
     }
 

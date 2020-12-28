@@ -10,8 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatNativeDateModule } from '@angular/material/core';
 import { HomeComponent } from './containers';
 import { LocationsService } from './services/locations/locations.service';
-import { SearchCityComponent } from './components/';
-import { SelectCityComponent } from './components/select-city/select-city.component';
+import { SearchCityComponent, SelectCityComponent } from './components/';
 
 const childRoutes: Route[] = [{ path: '', component: HomeComponent }];
 

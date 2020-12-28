@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
     pickupDateValue: Date = new Date();
     returnDateValue: Date = new Date();
 
-    constructor(private locationsService: LocationsService, private carsService: CarsService, private router: Router) {}
+    constructor(public locationsService: LocationsService, private carsService: CarsService, private router: Router) {}
 
     ngOnInit() {
         this.loadObservables();

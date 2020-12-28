@@ -1,0 +1,15 @@
+:host {
+    width: 600px !important;
+    display: block;
+}
+
+.form-field {
+    width: 100%;
+}
+
+.btn-group {
+    float: right;
+    .btn-login {
+        margin-left: 20px;
+    }
+}

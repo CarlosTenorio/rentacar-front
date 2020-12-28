@@ -8,6 +8,8 @@
         </div>
         <car-info [car]="carToOrder$ | async"></car-info>
     </div>
-    <div fxFlex="50">I already have an account</div>
-    <button fxFlex="50">I'm a new user</button>
+    <div *ngIf="!(userLogged$ | async)" fxFlex="50">
+        <button mat-raised-button fxFlex="50" (click)="openUserLogin()">I already have an account</button>
+        <button mat-raised-button color="accent" fxFlex="50">I'm a new user</button>
+    </div>
 </div>

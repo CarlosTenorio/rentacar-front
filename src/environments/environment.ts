@@ -5,6 +5,7 @@
 export const environment = {
     production: false,
     apiURL: 'http://localhost:8000/api',
+    apiTokenURL: 'http://localhost:8000/api-auth-token/',
     storageURL: 'http://localhost:8000'
 };
 

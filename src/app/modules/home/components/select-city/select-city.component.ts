@@ -13,7 +13,7 @@ export enum KEY_CODE {
     styleUrls: ['./select-city.component.scss']
 })
 export class SelectCityComponent {
-    @Input() locations: LocationInterface[];
+    @Input() locations: LocationInterface[] | null = [];
 
     @Output() locationChange = new EventEmitter<LocationInterface>();
 
@@ -69,6 +69,14 @@ export class SelectCityComponent {
     }
 
     searchChange() {
+        // if (!this.locations) {
+        //     this.locations.forEach((location: LocationInterface) => {
+        //         console.log(location);
+        //     });
+        // }
+
+        ////////////////////////////////////////////////
+
         if (this.locationSearch) {
             this.options = this.locations.filter((location: LocationInterface) => {
                 return location.name.toLocaleLowerCase().includes(this.locationSearch.toLocaleLowerCase());
