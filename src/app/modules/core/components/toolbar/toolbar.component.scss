@@ -4,3 +4,20 @@
     outline: none;
     text-decoration: none;
 }
+
+.toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+.box-logout {
+    cursor: pointer;
+    transition: transform 0.2s; /* Animation */
+    &:hover {
+        transform: scale(1.1);
+    }
+
+    .icon-exit {
+        vertical-align: middle;
+        margin-left: 5px;
+    }
+}

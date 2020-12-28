@@ -13,5 +13,7 @@ export class CarInfoComponent implements OnInit {
 
     constructor() {}
 
-    ngOnInit(): void {}
+    ngOnInit() {
+        // console.log(this.car);
+    }
 }

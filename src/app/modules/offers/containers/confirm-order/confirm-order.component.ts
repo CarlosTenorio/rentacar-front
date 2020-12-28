@@ -7,6 +7,9 @@ import { AuthenticationService } from 'src/app/modules/core/services/authenticat
 import { CarsService } from 'src/app/modules/home/services/cars/cars.service';
 import { FuelTypeEnum, CategoryInterface } from 'src/app/modules/home/models';
 import { DialogLoginComponent } from '../../components';
+import { OrderInterface } from '../../models';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-confirm-order',
@@ -20,17 +23,18 @@ export class ConfirmOrderComponent implements OnInit {
 
     constructor(
         private orderService: OrderService,
-        private carService: CarsService,
+        private carsService: CarsService,
         private dialog: MatDialog,
-        private authService: AuthenticationService
+        private authService: AuthenticationService,
+        private snackBar: MatSnackBar,
+        private router: Router
     ) {}
 
     ngOnInit() {
         this.carToOrder$ = this.orderService.carToOrder$;
-        this.searchCars$ = this.carService.searchCars$;
+        this.searchCars$ = this.carsService.searchCars$;
         this.userLogged$ = this.authService.userLogged$;
-        this.checkIfUserIsLogged();
-        this.addMock();
+        // this.addMock();
     }
 
     private addMock() {
@@ -54,7 +58,7 @@ export class ConfirmOrderComponent implements OnInit {
             dateStart: new Date()
         } as SearchInterface;
         this.orderService.setCarToOrder(mockCar);
-        this.carService.newSearchTrigguered(
+        this.carsService.newSearchTrigguered(
             mockSearch.cityId,
             mockSearch.cityName,
             mockSearch.dateStart,
@@ -62,11 +66,26 @@ export class ConfirmOrderComponent implements OnInit {
         );
     }
 
-    private checkIfUserIsLogged() {
-        const token = localStorage.getItem('authToken');
-        if (token) {
-            this.authService.setUserLogged(true);
-        }
+    saveOrder() {
+        const dateStart = this.carsService.getSearch().dateStart ? this.carsService.getSearch().dateStart : new Date();
+        const dateEnd = this.carsService.getSearch().dateEnd ? this.carsService.getSearch().dateEnd : new Date();
+        const car = this.orderService.getCarToOrder();
+
+        dateStart.setHours(0, 0, 0, 0);
+        dateEnd.setHours(0, 0, 0, 0);
+
+        const orderToSave = {
+            car: car.id,
+            date_start: dateStart,
+            date_end: dateEnd
+        } as OrderInterface;
+
+        this.orderService.saveOrder(orderToSave).subscribe((order: OrderInterface) => {
+            this.snackBar.open('Order created', null, {
+                duration: 2000
+            });
+            this.router.navigateByUrl('home');
+        });
     }
 
     openUserLogin() {

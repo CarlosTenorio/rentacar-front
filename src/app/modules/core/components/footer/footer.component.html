@@ -1,5 +1,10 @@
 <footer>
     <div class="footer-container">
-        <div>DESTINOS CON SUCURSALES SIXT</div>
+        <div class="title">DESTINOS CON SUCURSALES SIXT</div>
+        <div fxLayout="row wrap" fxLayoutAlign="none center" fxlayoutgap="10px">
+            <div fxFlex="25" *ngFor="let location of locations$ | async" class="location-name">
+                {{ location.name }}
+            </div>
+        </div>
     </div>
 </footer>

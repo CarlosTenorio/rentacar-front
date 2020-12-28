@@ -1,12 +1,22 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
-  selector: 'app-toolbar',
-  templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss'],
+    selector: 'app-toolbar',
+    templateUrl: './toolbar.component.html',
+    styleUrls: ['./toolbar.component.scss']
 })
 export class ToolbarComponent implements OnInit {
-  constructor() {}
+    userLogged$: Observable<boolean>;
 
-  ngOnInit(): void {}
+    constructor(private authService: AuthenticationService) {}
+
+    ngOnInit() {
+        this.userLogged$ = this.authService.userLogged$;
+    }
+
+    logout() {
+        this.authService.logout();
+    }
 }

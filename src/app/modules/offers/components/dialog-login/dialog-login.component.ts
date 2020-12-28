@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { finalize } from 'rxjs/operators';
 import { AuthenticationService } from 'src/app/modules/core/services/authentication.service';
 
@@ -14,9 +15,14 @@ export class DialogLoginComponent {
     loading = false;
     password: string;
 
-    constructor(private authenticationService: AuthenticationService) {}
+    constructor(
+        private authenticationService: AuthenticationService,
+        public dialogRef: MatDialogRef<DialogLoginComponent>
+    ) {}
 
-    cancel() {}
+    cancel() {
+        this.dialogRef.close();
+    }
 
     login(loginForm: NgForm) {
         if (loginForm.valid && !this.loading) {
@@ -26,11 +32,11 @@ export class DialogLoginComponent {
                 .pipe(
                     finalize(() => {
                         this.loading = false;
+                        this.dialogRef.close();
                     })
                 )
                 .subscribe(
                     ({ token }) => {
-                        console.log(token);
                         if (token) {
                             localStorage.setItem('authToken', token);
                             this.authenticationService.setUserLogged(true);
@@ -39,7 +45,6 @@ export class DialogLoginComponent {
                         }
                     },
                     () => {
-                        console.log('error');
                         this.error = 'Username or password is incorrect';
                     }
                 );

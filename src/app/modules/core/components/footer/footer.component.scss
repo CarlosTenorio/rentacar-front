@@ -5,4 +5,17 @@
     color: #ffffff;
     width: 100%;
     height: auto;
+
+    .title {
+        padding: 20px;
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .location-name {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        text-align: center;
+        color: $primary-orange;
+    }
 }

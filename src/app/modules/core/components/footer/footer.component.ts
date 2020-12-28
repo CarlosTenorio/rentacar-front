@@ -1,4 +1,7 @@
+import { LocationsService } from './../../../home/services/locations/locations.service';
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { LocationInterface } from 'src/app/modules/home/models';
 
 @Component({
     selector: 'app-footer',
@@ -6,5 +9,12 @@ import { Component } from '@angular/core';
     styleUrls: ['./footer.component.scss']
 })
 export class FooterComponent {
-    constructor() {}
+    locations$: Observable<LocationInterface[] | null>;
+
+    constructor(private locationsService: LocationsService) {}
+
+    ngOnInit(): void {
+        this.locations$ = this.locationsService.locations$;
+        this.locationsService.loadLocations();
+    }
 }
