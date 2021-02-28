@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BrandInterface, CarInterface, ColorEnum, ModelInterface, SearchInterface } from 'src/app/modules/home/models';
 import { OrderService } from '../../services/order/order.service';
-import { AuthenticationService } from 'src/app/modules/core/services/authentication.service';
+import { AuthenticationService } from 'src/app/modules/core/services/authentication/authentication.service';
 import { CarsService } from 'src/app/modules/home/services/cars/cars.service';
 import { FuelTypeEnum, CategoryInterface } from 'src/app/modules/home/models';
-import { DialogLoginComponent } from '../../components';
 import { OrderInterface } from '../../models';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { DialogLoginComponent } from '../../components';
 
 @Component({
     selector: 'app-confirm-order',
@@ -20,6 +20,11 @@ export class ConfirmOrderComponent implements OnInit {
     carToOrder$: Observable<CarInterface>;
     searchCars$: Observable<SearchInterface>;
     userLogged$: Observable<boolean>;
+
+    /***************************************************
+     * SECOND OPTION: Load SearchInterface from typescript
+     ***************************************************/
+    // searchCar: SearchInterface;
 
     constructor(
         private orderService: OrderService,
@@ -35,11 +40,19 @@ export class ConfirmOrderComponent implements OnInit {
         this.searchCars$ = this.carsService.searchCars$;
         this.userLogged$ = this.authService.userLogged$;
         // this.addMock();
+
+        /***************************************************
+         * SECOND OPTION: Load SearchInterface from typescript
+         ***************************************************/
+        // this.carsService.searchCars$.subscribe((search: SearchInterface) => {
+        //     this.searchCar = search;
+        // });
     }
 
     private addMock() {
         const mockCar = {
-            color: ColorEnum.BLACK,
+            id: 1,
+            color_type: ColorEnum.BLACK,
             doors: 5,
             passengers: 4,
             fuel_type: FuelTypeEnum.GASOLINE,

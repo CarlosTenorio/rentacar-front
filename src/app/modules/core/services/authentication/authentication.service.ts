@@ -23,8 +23,12 @@ export class AuthenticationService {
         }
     }
 
+    getToken(): string {
+        return localStorage.getItem(KEY_AUTH_TOKEN);
+    }
+
     login(username: string, password: string): Observable<{ token: string }> {
-        return this.http.post<{ token: string }>(environment.apiTokenURL, { username: username, password: password });
+        return this.http.post<{ token: string }>(environment.apiTokenURL, { username, password });
     }
 
     logout() {
@@ -32,9 +36,11 @@ export class AuthenticationService {
         this.setUserLogged(false);
     }
 
-    registerUser() {}
-
     setUserLogged(isLogged: boolean) {
         this.userLoggedSubject.next(isLogged);
+    }
+
+    userIsLoggued(): boolean {
+        return this.userLoggedSubject.value;
     }
 }

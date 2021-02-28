@@ -7,10 +7,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
-import { MatNativeDateModule } from '@angular/material/core';
 import { HomeComponent } from './containers';
 import { LocationsService } from './services/locations/locations.service';
 import { SearchCityComponent, SelectCityComponent } from './components/';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const childRoutes: Route[] = [{ path: '', component: HomeComponent }];
 

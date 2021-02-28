@@ -1,7 +1,7 @@
 <form #loginForm="ngForm" novalidate>
     <mat-form-field class="form-field">
         <mat-label>Email</mat-label>
-        <input type="email" [(ngModel)]="email" name="email" matInput placeholder="Ex. ana@gmail.com" required />
+        <input type="email" [(ngModel)]="email" name="email" matInput placeholder="ana@gmail.com" required />
         <mat-error *ngIf="loginForm.controls['email']?.hasError('required')">
             Email is <strong>required</strong>
         </mat-error>

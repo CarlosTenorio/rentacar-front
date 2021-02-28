@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -10,6 +10,7 @@ import { RouterModule } from '@angular/router';
 import { FooterComponent, ToolbarComponent } from './components';
 import { LocationsService } from '../home/services/locations/locations.service';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AuthInterceptorService } from './services/auth-interceptor/auth-interceptor.service';
 @NgModule({
     declarations: [ToolbarComponent, FooterComponent],
     imports: [
@@ -22,7 +23,14 @@ import { FlexLayoutModule } from '@angular/flex-layout';
         RouterModule,
         FlexLayoutModule
     ],
-    exports: [ToolbarComponent, FooterComponent],
-    providers: [LocationsService]
+    exports: [ToolbarComponent, FooterComponent, FlexLayoutModule],
+    providers: [
+        LocationsService,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptorService,
+            multi: true
+        }
+    ]
 })
 export class CoreModule {}

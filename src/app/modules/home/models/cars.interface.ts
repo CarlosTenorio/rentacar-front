@@ -5,7 +5,7 @@ import { FuelTypeEnum } from './fuel-type.enum';
 
 export interface CarInterface {
     id: number;
-    color: ColorEnum;
+    color_type: ColorEnum;
     doors: number;
     passengers: number;
     fuel_type: FuelTypeEnum;

@@ -24,7 +24,7 @@ export class LocationsService {
     }
 
     loadLocations() {
-        this.http.get<LocationInterface[]>('http://localhost:8000/api/locations/').subscribe(
+        this.http.get<LocationInterface[]>(`${environment.apiURL}/locations`).subscribe(
             (locations: LocationInterface[]) => {
                 // cuando va bien la llamada
                 console.log(locations);

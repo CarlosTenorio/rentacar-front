@@ -24,19 +24,6 @@ export class HomeComponent implements OnInit {
         this.locationsService.loadLocations();
     }
 
-    private formIsValid(): boolean {
-        this.locationSelectedError = !!!this.locationSelected;
-        return !this.locationSelectedError && !!this.pickupDateValue && !!this.returnDateValue;
-    }
-
-    private loadObservables() {
-        this.locations$ = this.locationsService.locations$;
-    }
-
-    locationChange(location: LocationInterface) {
-        this.locationSelected = location;
-    }
-
     findCars() {
         if (this.formIsValid()) {
             this.carsService.loadAvailableCars(
@@ -47,5 +34,33 @@ export class HomeComponent implements OnInit {
             );
             this.router.navigate(['offerlist']);
         }
+    }
+
+    private formIsValid(): boolean {
+        // if (this.locationSelected && this.pickupDateValue && this.returnDateValue) {
+        //     return true;
+        // } else {
+        //     return false;
+        // }
+
+        // return (
+        //     this.locationSelected != null &&
+        //     this.locationSelected != undefined &&
+        //     this.pickupDateValue != null &&
+        //     this.pickupDateValue != undefined &&
+        //     this.returnDateValue != null &&
+        //     this.returnDateValue != undefined
+        // );
+
+        // !! nos permite convertir en un boolean una variable de otro tipo.
+        return !!this.locationSelected && !!this.pickupDateValue && !!this.returnDateValue;
+    }
+
+    private loadObservables() {
+        this.locations$ = this.locationsService.locations$;
+    }
+
+    locationChange(location: LocationInterface) {
+        this.locationSelected = location;
     }
 }

@@ -20,7 +20,8 @@ export class CarsService {
     constructor(private http: HttpClient) {}
 
     loadAvailableCars(cityId: number, cityName: string, dateStart: Date = null, dateEnd: Date = null) {
-        this.loadingCarsSubject.next(true);
+        // this.loadingCarsSubject.next(true);
+
         let httpParams;
         if (dateStart && dateEnd) {
             dateStart.setHours(0, 0, 0, 0);
@@ -30,25 +31,48 @@ export class CarsService {
                 .append('date_end', new Date(dateEnd).toISOString());
         }
 
-        if (cityId) {
-            httpParams = httpParams.append('city', cityId.toString());
-        }
+        httpParams = httpParams.append('city', cityId.toString());
 
         this.newSearchTrigguered(cityId, cityName, dateStart, dateEnd);
 
         this.http
-            .get<CarInterface[]>(`${environment.apiURL}/cars`, { params: httpParams })
-            .pipe(
-                finalize(() => {
-                    this.loadingCarsSubject.next(false);
-                })
-            )
-            .subscribe((cars: CarInterface[]) => {
-                this.carsAvailableSubject.next(cars);
-            });
+            .get<CarInterface[]>(`${environment.apiURL}/cars/`, { params: httpParams })
+            .subscribe(
+                (cars: CarInterface[]) => {
+                    // cuando va bien la llamada
+                    console.log(cars);
+                    this.carsAvailableSubject.next(cars);
+                },
+                () => {
+                    // cuando hay error
+                    // this.createCarsMock();
+                    // En producción nunca creamos mocks
+                    // this.showErrorMessage()
+                }
+            );
+
+        // this.http
+        //     .get<CarInterface[]>(`${environment.apiURL}/cars`, { params: httpParams })
+        //     .pipe(
+        //         finalize(() => {
+        //             this.loadingCarsSubject.next(false);
+        //         })
+        //     )
+        //     .subscribe((cars: CarInterface[]) => {
+        //         this.carsAvailableSubject.next(cars);
+        //     });
     }
 
     newSearchTrigguered(cityId: number, cityName: string, dateStart: Date, dateEnd: Date) {
+        // Common version
+        // this.searchCarsSubject.next({
+        //     cityId: cityId,
+        //     cityName: cityName,
+        //     dateEnd: dateEnd,
+        //     dateStart: dateStart
+        // } as SearchInterface);
+
+        // Ninja version (just in case the key and the value have the same name)
         this.searchCarsSubject.next({ cityId, cityName, dateEnd, dateStart } as SearchInterface);
     }
 

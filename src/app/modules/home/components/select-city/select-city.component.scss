@@ -1,20 +1,24 @@
 @import './../../../../../assets/styles/vars.scss';
 
 .container-select {
-    width: inherit;
-    height: inherit;
+    // width: inherit;
+    // height: inherit;
     position: relative;
 
     .options-container {
         position: absolute;
         z-index: 1;
+        background-color: #ffffff;
         width: 100%;
 
         .options-item {
-            background-color: #fff;
             line-height: 30px;
             padding: 5px;
             font-size: 17px;
+            // HOVER VERSION (EASY MODE)
+            // &:hover {
+            //     background-color: $primary-orange;
+            // }
         }
     }
 }
@@ -29,8 +33,8 @@
     font-size: 22px;
     color: $primary-black;
     border: 0;
-    outline: 0;
     border-bottom: 2px solid $primary-orange;
+    outline: 0;
     vertical-align: middle;
     background-color: transparent;
     text-overflow: ellipsis;

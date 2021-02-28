@@ -15,7 +15,7 @@ export enum KEY_CODE {
 export class SelectCityComponent {
     @Input() locations: LocationInterface[] | null = [];
 
-    @Output() locationChange = new EventEmitter<LocationInterface>();
+    @Output() locationChange: EventEmitter<LocationInterface> = new EventEmitter<LocationInterface>();
 
     indexFocused = 0;
     inputFocused = false;
@@ -27,22 +27,29 @@ export class SelectCityComponent {
 
     @HostListener('window:keyup', ['$event'])
     keyEvent(event: KeyboardEvent) {
-        if (this.inputFocused) {
-            if (event.keyCode === KEY_CODE.UP_ARROW && this.indexFocused > 0) {
-                this.indexFocused--;
-            }
-            if (event.keyCode === KEY_CODE.DOWN_ARROW && this.indexFocused < this.options.length - 1) {
-                this.indexFocused++;
-            }
-            if (event.keyCode === KEY_CODE.ENTER) {
-                this.locationSelected = this.options[this.indexFocused]
-                    ? this.options[this.indexFocused]
-                    : this.locationSelected;
-                this.locationSearch = this.locationSelected.name;
-                this.locationChange.emit(this.locationSelected);
-                this.cleanOptions();
-            }
+        // if (this.inputFocused) {
+        if (event.keyCode === KEY_CODE.UP_ARROW && this.indexFocused > 0) {
+            // Opción clásica para decrementar una unidad
+            // this.indexFocused = this.indexFocused - 1;
+            // Opción ninja de Javascript
+            this.indexFocused--;
         }
+        if (event.keyCode === KEY_CODE.DOWN_ARROW && this.indexFocused < this.options.length - 1) {
+            // Opción clásica para aumentar una unidad
+            // this.indexFocused = this.indexFocused + 1;
+            // Opción ninja de Javascript
+            this.indexFocused++;
+        }
+        if (event.keyCode === KEY_CODE.ENTER) {
+            this.locationSelected = this.options[this.indexFocused];
+            // this.locationSelected = this.options[this.indexFocused]
+            //     ? this.options[this.indexFocused]
+            //     : this.locationSelected;
+            this.locationSearch = this.locationSelected.name;
+            this.locationChange.emit(this.locationSelected);
+            this.cleanOptions();
+        }
+        // }
     }
 
     private cleanOptions() {
@@ -69,30 +76,38 @@ export class SelectCityComponent {
     }
 
     searchChange() {
-        // if (!this.locations) {
-        //     this.locations.forEach((location: LocationInterface) => {
-        //         console.log(location);
-        //     });
-        // }
-
-        ////////////////////////////////////////////////
-
         if (this.locationSearch) {
-            this.options = this.locations.filter((location: LocationInterface) => {
-                return location.name.toLocaleLowerCase().includes(this.locationSearch.toLocaleLowerCase());
-            });
-            if (!this.options.length) {
-                this.cleanOptions();
+            // Si tiene valor diferente a null entra, igual a if(this.locations !== null)
+            if (this.locations) {
+                this.options = this.locations.filter((location: LocationInterface) => {
+                    // console.log(location.name.toLocaleLowerCase());
+                    return location.name.toLocaleLowerCase().includes(this.locationSearch.toLocaleLowerCase());
+                });
+                console.log(this.options);
             }
         } else {
             this.cleanOptions();
         }
+
+        ////////////////////////////////////////////////
+
+        // if (this.locationSearch) {
+        //     this.options = this.locations.filter((location: LocationInterface) => {
+        //         return location.name.toLocaleLowerCase().includes(this.locationSearch.toLocaleLowerCase());
+        //     });
+        //     if (!this.options.length) {
+        //         this.cleanOptions();
+        //     }
+        // } else {
+        //     this.cleanOptions();
+        // }
     }
 
     selectOption(location: LocationInterface) {
+        console.log(location);
         this.locationSearch = location.name;
         this.locationSelected = location;
-        this.locationChange.emit(this.locationSelected);
+        this.locationChange.emit(location);
         this.cleanOptions();
     }
 }

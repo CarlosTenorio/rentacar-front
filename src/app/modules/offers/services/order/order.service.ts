@@ -19,7 +19,6 @@ export class OrderService {
     }
 
     setCarToOrder(car: CarInterface) {
-        console.log('setCarToOrder', car);
         this.carToOrderSubject.next(car);
     }
 

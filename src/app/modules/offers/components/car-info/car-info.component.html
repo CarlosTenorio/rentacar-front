@@ -1,6 +1,6 @@
 <div class="title">{{ car.model.brand.name }} {{ car.model.name }}</div>
 <div class="category">
-    <mat-chip-list aria-label="Fish selection">
+    <mat-chip-list>
         <mat-chip>
             {{ car.category.name | uppercase }}
         </mat-chip>
@@ -8,17 +8,17 @@
 </div>
 
 <div class="image" fxLayout="row" fxLayoutAlign="center center">
-    <img [src]="storageURL + car.model.photo" alt="" />
+    <img [src]="storageURL + car.model.photo" />
 </div>
 
 <div class="info" fxLayout="row" fxLayoutAlign="center center">
     <div class="info-item">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">sensor_door</mat-icon>
+        <mat-icon>sensor_door</mat-icon>
         <span>{{ car.doors }}</span>
     </div>
 
     <div class="info-item">
-        <mat-icon aria-hidden="false" aria-label="Example home icon">people</mat-icon>
+        <mat-icon>people</mat-icon>
         <span>{{ car.passengers }}</span>
     </div>
 </div>
